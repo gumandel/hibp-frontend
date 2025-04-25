@@ -1,16 +1,16 @@
 <template>
-  <div class="email-checker">
+  <div class="password-checker">
     <div class="checker-card">
-      <h2>Verifique seu e-mail</h2>
-      <p>Digite um endereço de e-mail para verificar se foi exposto em vazamentos</p>
+      <h2>Verifique a senha</h2>
+      <p>Digite uma senha para verificar se foi exposta em vazamentos</p>
       
-      <form @submit.prevent="checkEmail" class="checker-form">
+      <form @submit.prevent="checkPassword" class="checker-form">
         <input
-          type="email"
-          v-model="email"
-          placeholder="exemplo@dominio.com"
+          type="password"
+          v-model="password"
+          placeholder="Digite a senha"
           required
-          class="email-input"
+          class="password-input"
         >
         <button type="submit" :disabled="isLoading" class="check-button">
           {{ isLoading ? 'Verificando...' : 'Verificar' }}
@@ -24,8 +24,8 @@
     
     <div v-if="results" class="results-container">
       <div v-if="results.breaches && results.breaches.length > 0" class="pwned-results">
-        <h3>⚠️ Resultados para "{{ email }}"</h3>
-        <p>Este e-mail foi encontrado em <strong>{{ results.breaches.length }}</strong> vazamentos conhecidos:</p>
+        <h3>⚠️ Resultados para "{{ password }}"</h3>
+        <p>Esta senha foi encontrada em <strong>{{ results.breaches.length }}</strong> vazamentos conhecidos:</p>
         
         <div class="breach-list">
           <div v-for="breach in results.breaches" :key="breach.Name" class="breach-item">
@@ -39,7 +39,7 @@
       
       <div v-else-if="results" class="safe-result">
         <h3>✅ Nenhum vazamento encontrado</h3>
-        <p>O e-mail "{{ email }}" não foi encontrado em nossos registros de vazamentos conhecidos.</p>
+        <p>A senha "{{ password }}" não foi encontrada em nossos registros de vazamentos conhecidos.</p>
       </div>
     </div>
   </div>
@@ -49,17 +49,17 @@
 import axios from 'axios'
 
 export default {
-  name: 'EmailChecker',
+  name: 'PasswordChecker',
   data() {
     return {
-      email: '',
+      password: '',
       isLoading: false,
       error: null,
       results: null
     }
   },
   methods: {
-    async checkEmail() {
+    async checkPassword() {
       this.isLoading = true
       this.error = null
       this.results = null
@@ -69,7 +69,7 @@ export default {
         const apiKey = 'sua-chave-api-hibp'
         
         const response = await axios.get(
-          `https://haveibeenpwned.com/api/v3/breachedaccount/${encodeURIComponent(this.email)}`,
+          `https://haveibeenpwned.com/api/v3/breachedaccount/${encodeURIComponent(this.password)}`,
           {
             headers: {
               'hibp-api-key': apiKey,
@@ -82,13 +82,13 @@ export default {
         )
         
         this.results = {
-          email: this.email,
+          password: this.password,
           breaches: response.data
         }
       } catch (error) {
         if (error.response && error.response.status === 404) {
           this.results = {
-            email: this.email,
+            password: this.password,
             breaches: []
           }
         } else {
@@ -108,7 +108,7 @@ export default {
 </script>
 
 <style scoped>
-.email-checker {
+.password-checker {
   margin-bottom: 2rem;
 }
 
@@ -126,7 +126,7 @@ export default {
   margin: 1.5rem 0;
 }
 
-.email-input {
+.password-input {
   flex: 1;
   padding: 12px;
   border: 1px solid #ddd;

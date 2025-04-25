@@ -2,11 +2,11 @@
   <div class="app">
     <header class="header">
       <h1>Verificador de Vazamentos</h1>
-      <p>Descubra se seu e-mail foi comprometido em vazamentos de dados</p>
+      <p>Descubra se uma senha foi comprometida em vazamentos de dados</p>
     </header>
     
     <main class="main-content">
-      <EmailChecker />
+      <PasswordChecker />
     </main>
     
     <footer class="footer">
@@ -16,12 +16,12 @@
 </template>
 
 <script>
-import EmailChecker from './components/EmailChecker.vue'
+import PasswordChecker from './components/PasswordChecker.vue'
 
 export default {
   name: 'App',
   components: {
-    EmailChecker
+    PasswordChecker
   }
 }
 </script>
