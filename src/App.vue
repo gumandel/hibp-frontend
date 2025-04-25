@@ -1,8 +1,8 @@
 <template>
   <div class="app">
     <header class="header">
-      <h1>Verificador de Vazamentos</h1>
-      <p>Descubra se uma senha foi comprometida em vazamentos de dados</p>
+      <h1>Verificador de Senhas Comprometidas</h1>
+      <p>Integração com a API Have I Been Pwned</p>
     </header>
     
     <main class="main-content">
@@ -10,7 +10,7 @@
     </main>
     
     <footer class="footer">
-      <p>Inspirado no serviço "Have I Been Pwned"</p>
+      <p>Backend: FastAPI | Frontend: Vue.js</p>
     </footer>
   </div>
 </template>
@@ -27,27 +27,23 @@ export default {
 </script>
 
 <style>
-/* Estilos básicos */
 :root {
   --primary-color: #2c3e50;
-  --secondary-color: #1a2b3c;
+  --secondary-color: #3498db;
   --background-color: #f5f7fa;
-  --text-color: #333;
-  --error-color: #e74c3c;
-  --success-color: #2ecc71;
 }
 
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  line-height: 1.6;
   margin: 0;
   padding: 0;
   background-color: var(--background-color);
-  color: var(--text-color);
+  color: #333;
+  line-height: 1.6;
 }
 
 .app {
-  max-width: 800px;
+  max-width: 1000px;
   margin: 0 auto;
   padding: 20px;
   min-height: 100vh;
@@ -57,11 +53,14 @@ body {
 
 .header {
   text-align: center;
-  padding: 2rem 0;
-  margin-bottom: 2rem;
+  padding: 2rem;
+  margin: 0 auto 2rem auto; /* Centraliza horizontalmente */
   background-color: var(--primary-color);
   color: white;
   border-radius: 8px;
+  max-width: 650px; /* Mesma largura do formulário */
+  width: calc(100% - 40px); /* Garante responsividade */
+  box-sizing: border-box; /* Inclui padding na largura total */
 }
 
 .main-content {
